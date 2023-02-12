@@ -1,10 +1,12 @@
 package com.restapitrialtask.restapitrialtask.controllers;
 
 import com.restapitrialtask.restapitrialtask.dto.QuoteDTO;
+import com.restapitrialtask.restapitrialtask.models.QuoteModel;
 import com.restapitrialtask.restapitrialtask.services.QuoteService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -35,5 +37,10 @@ public class QuoteController {
             return "You have deleted quote!";
         else
             return "Something went wrong!";
+    }
+
+    @GetMapping("api/quote")
+    public List<QuoteModel> showAllQuotes(){
+            return quoteService.showQuotes();
     }
 }

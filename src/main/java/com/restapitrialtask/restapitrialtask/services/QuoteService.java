@@ -6,12 +6,11 @@ import com.restapitrialtask.restapitrialtask.models.UserModel;
 import com.restapitrialtask.restapitrialtask.repository.QuoteRepo;
 import com.restapitrialtask.restapitrialtask.repository.UsersRepo;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,7 +39,7 @@ public class QuoteService {
         else {
             Timestamp updateDate = new Timestamp(System.currentTimeMillis());
             editedQuote.get().setQuoteContent(editQuote.getQuoteContent());
-            editedQuote.get().setDateUpdate(updateDate);
+            editedQuote.get().setCreatedUpdated(updateDate);
             return quoteRepo.save(editedQuote.get());
         }
     }
@@ -53,5 +52,10 @@ public class QuoteService {
             quoteRepo.deleteById(deletedQuote.getQuoteID());
             return "OK";
         }
+    }
+
+    public List<QuoteModel> showQuotes(){
+        List<QuoteModel> allQuotes = quoteRepo.findAll();
+        return allQuotes;
     }
 }

@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 public interface QuoteRepo extends JpaRepository<QuoteModel, Long> {
     @Query("SELECT quote FROM QuoteModel quote WHERE quote.quoteID = :quoteID")
     QuoteModel findQuoteById(Long quoteID);
+
 }

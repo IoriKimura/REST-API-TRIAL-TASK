@@ -22,7 +22,7 @@ public class QuoteModel {
     private String quoteContent;
 
     @Column
-    private Timestamp DateUpdate;
+    private Timestamp CreatedUpdated;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id")
@@ -33,7 +33,7 @@ public class QuoteModel {
 
     public QuoteModel(String quoteContent, Timestamp creationDate, UserModel user) {
         this.quoteContent = quoteContent;
-        this.DateUpdate = creationDate;
+        this.CreatedUpdated = creationDate;
         this.user = user;
         this.votesCount = 0;
     }
