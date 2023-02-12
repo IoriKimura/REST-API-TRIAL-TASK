@@ -6,12 +6,12 @@ import com.restapitrialtask.restapitrialtask.models.UserModel;
 import com.restapitrialtask.restapitrialtask.repository.QuoteRepo;
 import com.restapitrialtask.restapitrialtask.repository.UsersRepo;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @AllArgsConstructor
@@ -55,7 +55,28 @@ public class QuoteService {
     }
 
     public List<QuoteModel> showQuotes(){
+        return quoteRepo.findAll();
+    }
+
+    public QuoteDTO showQuote(Long quoteID){
+        QuoteModel quote = quoteRepo.findQuoteById(quoteID);
+        if(quote == null)
+            return new QuoteDTO();
+        else {
+            QuoteDTO showingQuote = new QuoteDTO(quote.getQuoteContent(),
+                    quote.getUser().getId(), quote.getQuoteID(), quote.getUser().getUserName(),
+                    quote.getCreatedUpdated(), quote.getVotesCount());
+            return showingQuote;
+        }
+    }
+
+    public QuoteDTO showRandom() {
         List<QuoteModel> allQuotes = quoteRepo.findAll();
-        return allQuotes;
+        Random rnd = new Random();
+        QuoteModel randomFromDB = allQuotes.get(rnd.nextInt(allQuotes.size()));
+        QuoteDTO randomQuote = new QuoteDTO(randomFromDB.getQuoteContent(),
+                randomFromDB.getUser().getId(), randomFromDB.getQuoteID(), randomFromDB.getUser().getUserName(),
+                randomFromDB.getCreatedUpdated(), randomFromDB.getVotesCount());
+        return randomQuote;
     }
 }

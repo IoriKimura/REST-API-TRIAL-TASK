@@ -43,4 +43,14 @@ public class QuoteController {
     public List<QuoteModel> showAllQuotes(){
             return quoteService.showQuotes();
     }
+
+    @GetMapping("api/quote/{id}")
+    public QuoteDTO showOneQuote(@PathVariable Long id){
+        return quoteService.showQuote(id);
+    }
+
+    @GetMapping("api/quote/random")
+    public QuoteDTO randomQuote(){
+        return quoteService.showRandom();
+    }
 }
