@@ -6,6 +6,10 @@ import com.restapitrialtask.restapitrialtask.models.UserModel;
 import com.restapitrialtask.restapitrialtask.repository.QuoteRepo;
 import com.restapitrialtask.restapitrialtask.repository.UsersRepo;
 import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -19,7 +23,7 @@ public class QuoteService {
     private QuoteRepo quoteRepo;
     private UsersRepo usersRepo;
 
-    public QuoteModel addNewQuote(QuoteDTO newQuote){
+    public QuoteModel addNewQuote(@NotNull QuoteDTO newQuote){
         //Trying to find user with this userID. If there is no user, then we send an empty UserModel
         Optional<UserModel> user = usersRepo.findById(newQuote.getUserID());
         if(user.isEmpty())
@@ -32,7 +36,7 @@ public class QuoteService {
         }
     }
 
-    public QuoteModel updateQuote(QuoteDTO editQuote){
+    public QuoteModel updateQuote(@NotNull QuoteDTO editQuote){
         Optional<QuoteModel> editedQuote = quoteRepo.findById(editQuote.getQuoteID());
         if(editedQuote.isEmpty())
             return new QuoteModel();
@@ -78,5 +82,15 @@ public class QuoteService {
                 randomFromDB.getUser().getId(), randomFromDB.getQuoteID(), randomFromDB.getUser().getUserName(),
                 randomFromDB.getCreatedUpdated(), randomFromDB.getVotesCount());
         return randomQuote;
+    }
+
+    public List<QuoteModel> showBest(){
+        Pageable topTen = PageRequest.of(0, 10);
+        return quoteRepo.findBest(topTen);
+    }
+
+    public List<QuoteModel> showWorst(){
+        Pageable worstTen = PageRequest.of(0, 10);
+        return quoteRepo.findWorst(worstTen);
     }
 }

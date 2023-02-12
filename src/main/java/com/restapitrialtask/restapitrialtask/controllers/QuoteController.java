@@ -53,4 +53,14 @@ public class QuoteController {
     public QuoteDTO randomQuote(){
         return quoteService.showRandom();
     }
+
+    @GetMapping("api/quote/top10")
+    public List<QuoteModel> bestQuotes(){
+        return quoteService.showBest();
+    }
+
+    @GetMapping("api/quote/worst10")
+    public List<QuoteModel> worstQuotes(){
+        return quoteService.showWorst();
+    }
 }

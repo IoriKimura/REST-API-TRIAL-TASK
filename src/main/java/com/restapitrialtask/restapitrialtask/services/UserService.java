@@ -4,6 +4,7 @@ import com.restapitrialtask.restapitrialtask.dto.UserDTO;
 import com.restapitrialtask.restapitrialtask.models.UserModel;
 import com.restapitrialtask.restapitrialtask.repository.UsersRepo;
 import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    public UserModel createUser(UserDTO userDTO){
+    public UserModel createUser(@NotNull UserDTO userDTO){
         //Here we get current date and time of creation an account
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
