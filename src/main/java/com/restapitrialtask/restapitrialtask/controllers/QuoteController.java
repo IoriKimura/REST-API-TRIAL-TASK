@@ -3,6 +3,7 @@ package com.restapitrialtask.restapitrialtask.controllers;
 import com.restapitrialtask.restapitrialtask.dto.QuoteDTO;
 import com.restapitrialtask.restapitrialtask.services.QuoteService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,5 +27,13 @@ public class QuoteController {
             return "There is no quote like this";
         else
             return "You have updated a quote!";
+    }
+
+    @DeleteMapping("api/quote/delete/{id}")
+    public String deleting(@PathVariable Long id){
+        if(quoteService.deletingQuote(id).equals("OK"))
+            return "You have deleted quote!";
+        else
+            return "Something went wrong!";
     }
 }
