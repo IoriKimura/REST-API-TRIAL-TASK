@@ -9,4 +9,5 @@ public class QuoteDTO {
 
     private String quoteContent;
     private Long userID;
+    private Long quoteID;
 }

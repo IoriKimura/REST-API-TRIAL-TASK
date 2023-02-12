@@ -29,4 +29,16 @@ public class QuoteService {
             return quoteRepo.save(quote);
         }
     }
+
+    public QuoteModel updateQuote(QuoteDTO editQuote){
+        Optional<QuoteModel> editedQuote = quoteRepo.findById(editQuote.getQuoteID());
+        if(editedQuote.isEmpty())
+            return new QuoteModel();
+        else {
+            Timestamp updateDate = new Timestamp(System.currentTimeMillis());
+            editedQuote.get().setQuoteContent(editQuote.getQuoteContent());
+            editedQuote.get().setDateUpdate(updateDate);
+            return quoteRepo.save(editedQuote.get());
+        }
+    }
 }
