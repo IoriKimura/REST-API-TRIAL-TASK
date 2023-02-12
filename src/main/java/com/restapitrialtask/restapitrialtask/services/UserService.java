@@ -16,7 +16,6 @@ import java.sql.Timestamp;
 @Service
 public class UserService {
 
-    @Autowired
     private UsersRepo usersRepo;
 
     @Autowired
