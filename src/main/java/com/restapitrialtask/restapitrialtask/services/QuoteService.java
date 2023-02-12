@@ -18,10 +18,12 @@ public class QuoteService {
     private UsersRepo usersRepo;
 
     public QuoteModel addNewQuote(QuoteDTO newQuote){
+        //Trying to find user with this userID. If there is no user, then we send an empty UserModel
         Optional<UserModel> user = usersRepo.findById(newQuote.getUserID());
         if(user.isEmpty())
             return new QuoteModel();
         else {
+            //Here we get current Date and Time of creation
             Timestamp creationDate = new Timestamp(System.currentTimeMillis());
             QuoteModel quote = new QuoteModel(newQuote.getQuoteContent(), creationDate, user.get());
             return quoteRepo.save(quote);

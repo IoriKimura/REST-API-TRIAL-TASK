@@ -13,6 +13,7 @@ public class QuoteController {
 
     private QuoteService quoteService;
 
+    //Creation of a quote
     @PostMapping("api/newQuote")
     public String addNewQuote(@RequestBody QuoteDTO newQuote) {
         if (quoteService.addNewQuote(newQuote).getQuoteID() == null)
