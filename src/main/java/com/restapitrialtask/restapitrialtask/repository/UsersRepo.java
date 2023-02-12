@@ -11,4 +11,7 @@ import java.util.List;
 public interface UsersRepo extends JpaRepository<UserModel, Long> {
     @Query("SELECT user FROM UserModel user WHERE user.userEmail = :newUserEmail")
     List<UserModel> findByEmail(String newUserEmail);
+
+    @Query("SELECT user FROM UserModel  user WHERE user.id = :userID")
+    UserModel findUserById(Long userID);
 }

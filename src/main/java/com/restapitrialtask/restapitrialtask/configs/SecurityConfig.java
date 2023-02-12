@@ -15,11 +15,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((requests) -> requests
-                        .anyRequest().permitAll()
+                .authorizeHttpRequests((requests) -> {
+                            try {
+                                requests
+                                        .requestMatchers("/h2-console").permitAll()
+                                        .anyRequest().permitAll()
+                                        .and().httpBasic();
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
                 )
                 .csrf().disable()
-                .httpBasic();
+                .headers().frameOptions().disable();
+
 
         return http.build();
     }
