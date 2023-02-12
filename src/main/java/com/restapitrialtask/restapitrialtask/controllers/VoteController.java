@@ -1,6 +1,5 @@
 package com.restapitrialtask.restapitrialtask.controllers;
 
-import com.restapitrialtask.restapitrialtask.dto.QuoteDTO;
 import com.restapitrialtask.restapitrialtask.services.VoteService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
